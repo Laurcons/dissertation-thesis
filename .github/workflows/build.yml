@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +18,9 @@ jobs:
       - name: Build PDF
         run: make full
 
-      - uses: actions/upload-artifact@v4
+      - uses: softprops/action-gh-release@v2
         with:
-          name: thesis
-          path: out/main.pdf
+          tag_name: latest
+          name: Latest build
+          files: out/main.pdf
+          make_latest: true
